@@ -1,0 +1,17 @@
+* WriteIP to DNS Master
+* Ansible to Build on request
+* Ensure on StartUp
+
+
+[Unit]
+Description=golang wiki initialization
+
+[Service]
+PIDFile=/tmp/gowiki.pid-4040
+User=root
+Group=root
+WorkingDirectory=/var/www
+ExecStart=/bin/bash -c '/var/www/wiki'
+
+[Install]
+WantedBy=multi-user.target
