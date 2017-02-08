@@ -63,7 +63,6 @@ func dyndns(ipv4 string, ipv6 string, config Config) {
 	v.Add("rr2", config.Subdomain + ". 600 IN A " + ipv4)
 	v.Add("rr3", config.Subdomain + ". 600 IN AAAA " + ipv6)
 	v.Add("rr4", config.Subdomain + ". 600 IN TXT " + formattedTime)
-	log.Print(v.Encode())
 	resp, err := http.PostForm("https://api.domainreselling.de/api/call.cgi", v)
 	if err != nil {
 		log.Fatal(err)
