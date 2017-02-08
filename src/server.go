@@ -1,7 +1,12 @@
 package main
 
-/*
-URL: http://myexternalip.com/#golang
+/**
+ * Package: DynDNS for UnitedDomains Reselling
+ * Usage on own risk
+ * No Support given, feel free to fork and modify =)
+ *
+ * Done by Bastian Bringenberg <bastian@agentur-pottkinder.de>
+ * External IP from: <http://myexternalip.com/#golang>
 */
 
 import (
@@ -53,19 +58,16 @@ func dyndns(ipv4 string, ipv6 string, config Config) {
 	v.Add("s_pw", config.Pass)
 	v.Add("command", "UpdateDNSZone")
 	v.Add("dnszone", config.Domain + ".")
-	v.Add("rr0", "@ IN NS ns1a.dodns.net")
-	v.Add("rr1", "@ IN NS ns2a.dodns.net")
-	v.Add("rr2", config.Domain + ". 3600 IN CNAME " + config.Cnamemaster + ".")
-	v.Add("rr3", "*." + config.Domain + ". 3600 IN CNAME " + config.Cnamemaster + ".")
-	v.Add("rr4", config.Domain + ". 600 IN A " + ipv4)
-	v.Add("rr5", config.Domain + ". 600 IN AAAA " + ipv6)
-	v.Add("rr6", config.Domain + ". 600 IN TXT " + formattedTime)
+	v.Add("rr0", config.Domain + ". 3600 IN CNAME " + config.Cnamemaster + ".")
+	v.Add("rr1", "*." + config.Domain + ". 3600 IN CNAME " + config.Cnamemaster + ".")
+	v.Add("rr2", config.Subdomain + ". 600 IN A " + ipv4)
+	v.Add("rr3", config.Subdomain + ". 600 IN AAAA " + ipv6)
+	v.Add("rr4", config.Subdomain + ". 600 IN TXT " + formattedTime)
 	log.Print(v.Encode())
 	resp, err := http.PostForm("https://api.domainreselling.de/api/call.cgi", v)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Fatal(resp.Status)
 	defer resp.Body.Close()
 }
 
