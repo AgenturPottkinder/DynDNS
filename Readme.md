@@ -10,12 +10,12 @@ This small go script fetches your remote IP Address ( ipv4 and ipv6 ) and writes
 * receives all configuration ( domain settings and access data ) from simple config file
 * checks your external IP addresses ( ipv4 and ipv6 )
 * if at least one address changes do the following steps else wait one further minute
-* send one command to United Domains API with username and password and change your DNS Zone:
-** *domain.tld*. 3600 IN CNAME *CNameMaster*.
-** \*.*domain.tld*. 3600 IN CNAME *CNameMaster*.
-** *subdomain.domain.tld*. 600 IN A *publicIpv4*
-** *subdomain.domain.tld*. 600 IN AAAA *publicIpv6*
-** *subdomain.domain.tld*. 600 IN TXT *current time in RFC3339 format*
+* send one command to United Domains API with username and password and change your DNS Zone
+  * *domain.tld*. 3600 IN CNAME *CNameMaster*.
+  * \*.*domain.tld*. 3600 IN CNAME *CNameMaster*.
+  * *subdomain.domain.tld*. 600 IN A *publicIpv4*
+  * *subdomain.domain.tld*. 600 IN AAAA *publicIpv6*
+  * *subdomain.domain.tld*. 600 IN TXT *current time in RFC3339 format*
 
 Requirements
 ---
@@ -31,11 +31,11 @@ Installation
 * Install this package to get all requirements for your new go script: ```go get "github.com/BurntSushi/toml"```
 * Build the go script: ```GOBIN=$(pwd) go install src/server.go```
 * Copy the file ```properties.ini.default``` to ```properties.ini``` and adjust your settings.
-** ```cnamemaster``` what should be the CNAME target for the domain ( not the subdomain )
-** ```subdomain``` the subdomain + domain you use for your dyndns
-** ```domain``` the domain you use for your dyndns. It gets the CNameMaster Value as CNAME
-** ```user``` your United Domains Reselling user
-** ```pass``` your United Domains Reselling user password
+  * ```cnamemaster``` what should be the CNAME target for the domain ( not the subdomain )
+  * ```subdomain``` the subdomain + domain you use for your dyndns
+  * ```domain``` the domain you use for your dyndns. It gets the CNameMaster Value as CNAME
+  * ```user``` your United Domains Reselling user
+  * ```pass``` your United Domains Reselling user password
 * Run ```./server```, sit down and take a look on the log.
 
 Known Todo
